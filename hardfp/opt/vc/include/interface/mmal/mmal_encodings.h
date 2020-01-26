@@ -94,6 +94,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MMAL_ENCODING_BGR32            MMAL_FOURCC('B','G','R','4')
 #define MMAL_ENCODING_BGR32_SLICE      MMAL_FOURCC('b','g','r','4')
 
+/** YUV 4:2:0 planar, 16bit/component.
+*/
+#define MMAL_ENCODING_I420_16          MMAL_FOURCC('i','4','2','0')
+/** YUV 4:2:0 planar, 10bit/component as least sig 10bits of 16 bit words.
+*/
+#define MMAL_ENCODING_I420_10          MMAL_FOURCC('i','4','1','0')
+
+/** YUV 4:2:0 planar but with U and V in side-by-side format
+ *   So U and V have same pitch as Y, but V = U + pitch/2
+*/
+#define MMAL_ENCODING_I420_S           MMAL_FOURCC('I','4','2','S')
+
 //Bayer formats
 //FourCC values copied from V4L2 where defined.
 //10 bit per pixel packed Bayer formats.
@@ -116,7 +128,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MMAL_ENCODING_BAYER_SRGGB12P   MMAL_FOURCC('p','R','1','2')  //RGGB
 
 //16 bit per pixel Bayer formats.
-#define MMAL_ENCODING_BAYER_SBGGR16    MMAL_FOURCC('R','G','1','6')  //BGGR
+#define MMAL_ENCODING_BAYER_SBGGR16    MMAL_FOURCC('B','G','1','6')  //BGGR
 #define MMAL_ENCODING_BAYER_SGBRG16    MMAL_FOURCC('G','B','1','6')  //GBRG
 #define MMAL_ENCODING_BAYER_SGRBG16    MMAL_FOURCC('G','R','1','6')  //GRBG
 #define MMAL_ENCODING_BAYER_SRGGB16    MMAL_FOURCC('R','G','1','6')  //RGGB
@@ -132,6 +144,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * of YUV_UV video.
  */
 #define MMAL_ENCODING_YUVUV128         MMAL_FOURCC('S','A','N','D')
+/** HEVC codec format. YUV 420, 10bpc, arranged with 3 values packed into
+ * 4 bytes with 2 bits of padding.
+ * The image is split into columns or 128 bytes / 96 samples wide, with the
+ * column of luma first, followed by the column of sample interleaved chroma.
+ */
+#define MMAL_ENCODING_YUV10_COL	       MMAL_FOURCC('Y','1','0','C')
+/** 16 bit SAND Video (YUVUV64_16) format.
+ * This format is *not* opaque - if requested you will receive full frames
+ * of YUV_UV_16 video.
+ */
+#define MMAL_ENCODING_YUVUV64_16      MMAL_FOURCC('S','A','1','6')
+/** 10 bit SAND Video format, packed as least sig 10 bits of 16 bit words.
+ */
+#define MMAL_ENCODING_YUVUV64_10      MMAL_FOURCC('S','A','1','0')
 
 /** VideoCore opaque image format, image handles are returned to
  * the host but not the actual image data.
@@ -247,6 +273,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MMAL_COLOR_SPACE_BT470_2_BG    MMAL_FOURCC('Y','_','B','G')
 /** JPEG JFIF, but with 16..255 luma */
 #define MMAL_COLOR_SPACE_JFIF_Y16_255  MMAL_FOURCC('Y','Y','1','6')
+/** Rec2020 */
+#define MMAL_COLOR_SPACE_REC2020       MMAL_FOURCC('2','0','2','0')
 /* @} MmalColorSpace List */
 
 #endif /* MMAL_ENCODINGS_H */
